@@ -37,7 +37,7 @@ CelebA dataset can be easily downloaded with the following script.<br/><br/>
 ```
 bash download.sh celeba
 ```
-<br/>
+
 3. BAM dataset
 Similar to CelebA, you need to **preprocess** the data after downloading. Downloading the data is possible if you fulfill a given task (segmentation labeling). Please go to the [link](https://bam-dataset.org/#download) in order to download it. <br/><br/>
 
