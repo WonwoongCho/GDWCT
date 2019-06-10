@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/20943085/59209921-633a9280-8be7-11e9-96fb-40de50697399.png" width="100%"></img>
+<img src="https://user-images.githubusercontent.com/20943085/59210582-e27c9600-8be8-11e9-8434-148cc3bdb274.png" width="100%"></img>
 ***
 This repository provides the official code of GDWCT, and it is written in PyTorch.
 
