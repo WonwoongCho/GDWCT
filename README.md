@@ -38,13 +38,15 @@ CelebA dataset can be easily downloaded with the following script.<br/>
 bash download.sh celeba
 ```
 3. BAM dataset
-Similar to CelebA, you need to **preprocess** the data after downloading. <br/>
-Downloading the data is possible if you fulfill a given task (segmentation labeling). Please go to the [link](https://bam-dataset.org/#download) in order to download it. <br/>
+Similar to CelebA, you need to **preprocess** the data after downloading. Downloading the data is possible if you fulfill a given task (segmentation labeling). Please go to the [link](https://bam-dataset.org/#download) in order to download it. <br/>
 
 We wish to directly provide the data we used in the paper, however it cannot be allowed because the data is preprocessed. We apologize for this.
 
-### 
-
+### Train and Test
+Settings and hyperparameters are set in the config.yaml file. Specific descriptions are provided in the file as comments. Please refer to them. After setting, GDWCT can be trained or tested by the following script (NOTE: 'MODE' and 'LOAD_MODEL' should be set True if a user want to test the model.):
+```
+python run.py
+```
 
 ## Citation
 ```
