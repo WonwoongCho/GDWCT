@@ -58,6 +58,7 @@ We will upload the pretrained model trained with the ukiyoe2photo dataset.
 <img src="https://user-images.githubusercontent.com/20943085/59216212-24600900-8bf6-11e9-834e-86646813f6da.png" width="100%"></img>
 
 ## Citation
+Please cite our paper if our work including this code is helpful for your research.
 ```
 @InProceedings{GDWCT2019,
 author = {Wonwoong Cho, Sungha Choi, David Park, Inkyu Shin, Jaegul Choo},
