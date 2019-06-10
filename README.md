@@ -50,7 +50,7 @@ python run.py
 ```
 
 ### Pretrained models
-We will upload the pretrained model trained with the ukiyoe2photo dataset.
+We will upload the pretrained model trained on the ukiyoe2photo dataset.
 
 ## Results
 <img src="https://user-images.githubusercontent.com/20943085/59216176-0befee80-8bf6-11e9-848d-e89ac4af71b2.png" width="100%"></img>
