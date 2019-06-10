@@ -52,9 +52,9 @@ python run.py
 We will upload the pretrained model trained with the ukiyoe2photo dataset.
 
 ## Results
-<img src="https://user-images.githubusercontent.com/20943085/59215929-78b6b900-8bf5-11e9-8dc3-91e6b03d7b9f.png" width="100%"></img>
-<img src="https://user-images.githubusercontent.com/20943085/59215956-89672f00-8bf5-11e9-9aa0-d815716cf6a3.png" width="100%"></img>
-<img src="https://user-images.githubusercontent.com/20943085/59215971-9552f100-8bf5-11e9-9350-bf962f77c873.png" width="100%"></img>
+<img src="https://user-images.githubusercontent.com/20943085/59216176-0befee80-8bf6-11e9-848d-e89ac4af71b2.png" width="100%"></img>
+<img src="https://user-images.githubusercontent.com/20943085/59216195-17dbb080-8bf6-11e9-85ec-5695e08056af.png" width="100%"></img>
+<img src="https://user-images.githubusercontent.com/20943085/59216212-24600900-8bf6-11e9-834e-86646813f6da.png" width="100%"></img>
 
 ## Citation
 ```
