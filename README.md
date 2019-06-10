@@ -2,7 +2,7 @@
 #### <hr/>
 This repository provides the official code of GDWCT, and it is written in PyTorch.
 
-### Comparison with baselines on CelebA dataset <br/>
+### Comparison with baselines on CelebA dataset
 ---
 <img src="https://user-images.githubusercontent.com/20943085/59201467-77759400-8bd5-11e9-9adb-d6bae7c8eb12.png" width="100%"></img>
 <br/>
