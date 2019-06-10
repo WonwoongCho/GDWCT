@@ -48,6 +48,9 @@ Settings and hyperparameters are set in the config.yaml file. Please refer to sp
 python run.py
 ```
 
+### Pretrained models
+We will upload the pretrained model trained with the ukiyoe2photo dataset.
+
 ## Citation
 ```
 @InProceedings{GDWCT2019,
