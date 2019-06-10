@@ -1,6 +1,10 @@
 <img src="https://user-images.githubusercontent.com/20943085/59210582-e27c9600-8be8-11e9-8434-148cc3bdb274.png" width="100%"></img>
 ***
-This repository provides the official code of GDWCT, and it is written in PyTorch.
+This repository provides the official code of GDWCT, and it is written in PyTorch. <br/>
+Paper
+>Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation[link](https://arxiv.org/abs/1812.09912) <br/>
+authors
+
 
 <br/>
 
@@ -13,5 +17,3 @@ This repository provides the official code of GDWCT, and it is written in PyTorc
 <br/>
 
 ## Paper
-Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation[link](https://arxiv.org/abs/1812.09912) <br/>
-authors
