@@ -52,7 +52,6 @@ class UnalignedDataset(data.Dataset):
     def __len__(self):
         return max(self.A_size, self.B_size)
 
-
 def get_loader(image_dir, crop_size=216, resize=216, 
                batch_size=16, dataset='CelebA', mode='train', num_workers=1):
     """Build and return a data loader."""
