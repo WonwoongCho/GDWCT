@@ -51,6 +51,11 @@ python run.py
 ### Pretrained models
 We will upload the pretrained model trained with the ukiyoe2photo dataset.
 
+### Results
+<img src="https://user-images.githubusercontent.com/20943085/59215929-78b6b900-8bf5-11e9-8dc3-91e6b03d7b9f.png" width="100%"></img>
+<img src="https://user-images.githubusercontent.com/20943085/59215956-89672f00-8bf5-11e9-9aa0-d815716cf6a3.png" width="100%"></img>
+<img src="https://user-images.githubusercontent.com/20943085/59215971-9552f100-8bf5-11e9-9350-bf962f77c873.png" width="100%"></img>
+
 ## Citation
 ```
 @InProceedings{GDWCT2019,
