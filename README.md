@@ -4,7 +4,7 @@ This repository provides the official code of GDWCT, and it is written in PyTorc
 
 ## Paper
 **Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation** ([link](https://arxiv.org/abs/1812.09912)) <br/>
-Wonwoong Cho<sup>1)</sup>, Sungha Choi<sup>1,2)</sup>, David Park<sup>1)</sup>, Inkyu Shin<sup>3)</sup>, Jaegul Choo<sup>1)</sup> <br/>
+Wonwoong Cho<sup>1)</sup>, Sungha Choi<sup>1,2)</sup>, David Keetae Park<sup>1)</sup>, Inkyu Shin<sup>3)</sup>, Jaegul Choo<sup>1)</sup> <br/>
 <sup>1)</sup>Korea University, <sup>2)</sup>LG Electronics, <sup>3)</sup>Hanyang University <br/>
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2019 (**Oral**)
 <br/>
@@ -61,7 +61,7 @@ We will upload the pretrained model trained on the ukiyoe2photo dataset.
 Please cite our paper if our work including this code is helpful for your research.
 ```
 @InProceedings{GDWCT2019,
-author = {Wonwoong Cho, Sungha Choi, David Park, Inkyu Shin, Jaegul Choo},
+author = {Wonwoong Cho, Sungha Choi, David Keetae Park, Inkyu Shin, Jaegul Choo},
 title = {Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation},
 booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
 year = {2019}
