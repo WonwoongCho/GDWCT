@@ -1,5 +1,5 @@
 <img src="https://user-images.githubusercontent.com/20943085/59209921-633a9280-8be7-11e9-96fb-40de50697399.png" width="100%"></img>
-#### <hr/>
+---
 This repository provides the official code of GDWCT, and it is written in PyTorch.
 
 ### Comparison with baselines on CelebA dataset
