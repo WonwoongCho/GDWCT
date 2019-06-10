@@ -4,7 +4,7 @@ This repository provides the official code of GDWCT, and it is written in PyTorc
 
 ## Paper
 Image-to-Image Translation via Group-wise Deep Whitening-and-Coloring Transformation[link](https://arxiv.org/abs/1812.09912) <br/>
-Wonwoong Cho^1)^, Sungha Choi, David Park, Inkyu Shin, Jaegul Choo
+Wonwoong Cho <sup>1)</sup>, Sungha Choi, David Park, Inkyu Shin, Jaegul Choo
 
 <br/>
 
