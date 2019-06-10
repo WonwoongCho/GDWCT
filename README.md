@@ -29,15 +29,15 @@ git clone https://github.com/WonwoongCho/GDWCT.git
 cd GDWCT
 ```
 ### Dataset
-## 1. Artworks dataset##
+** 1. Artworks dataset**
 Please go to the github repository of CycleGAN ([link](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)) and download monet2photo, cezanne2photo, ukiyoe2photo, and vangogh2photo. <br/><br/>
-## 2. CelebA dataset##
+** 2. CelebA dataset**
 Our data loader necessitates data whose subdirectories are composed of 'trainA', 'trainB', 'testA', and 'testB'. Hence, after downloading CelebA dataset, you need to **preprocess** CelebA data by separating the data according to a target attribute of a translation. i.e., A: Male, B: Female. <br/>
 CelebA dataset can be easily downloaded with the following script.<br/><br/>
 ```
 bash download.sh celeba
 ```
-## 3. BAM dataset##
+** 3. BAM dataset**
 Similar to CelebA, you need to **preprocess** the data after downloading. Downloading the data is possible if you fulfill a given task (segmentation labeling). Please go to the [link](https://bam-dataset.org/#download) in order to download it. <br/><br/>
 
 We wish to directly provide the data we used in the paper, however it cannot be allowed because the data is preprocessed. We apologize for this.
