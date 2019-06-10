@@ -1,0 +1,11 @@
+/*
+/*/
+
+!.gitignore
+!data_loader.py
+!model.py
+!run.py
+!download.sh
+
+!configs/
+!utils/
