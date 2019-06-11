@@ -10,7 +10,7 @@ IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2019 (**Oral*
 <br/>
 
 ## Additional resources for comprehending the paper
-- [Powerpoint (pdf)](https://drive.google.com/file/d/1EnY8iUuzwOn9tVDsgJUwt6o05Ic7-f1w/view) <br/>
+- [Presentation (pdf)](https://drive.google.com/file/d/1EnY8iUuzwOn9tVDsgJUwt6o05Ic7-f1w/view) <br/>
 - Poster (this will be uploaded soon)
 
 ## Comparison with baselines on CelebA dataset
