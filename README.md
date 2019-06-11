@@ -9,6 +9,11 @@ Wonwoong Cho<sup>1)</sup>, Sungha Choi<sup>1,2)</sup>, David Keetae Park<sup>1)<
 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2019 (**Oral**)
 <br/>
 
+## Additional resources for comprehending the paper
+- [ppt file](https://drive.google.com/file/d/1EnY8iUuzwOn9tVDsgJUwt6o05Ic7-f1w/view) <br/>
+- poster (this will be uploaded soon)
+
+
 ## Comparison with baselines on CelebA dataset
 <img src="https://user-images.githubusercontent.com/20943085/59201467-77759400-8bd5-11e9-9adb-d6bae7c8eb12.png" width="100%"></img>
 <br/>
