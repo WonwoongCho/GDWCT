@@ -19,7 +19,7 @@ D_LR: 0.0001
 BETA1: 0.5
 BETA2: 0.999
 WEIGHT_DECAY: 0.0001
-NUM_ITERS_DECAY: 100000 # Artworks dataset: 100000 / CelebA dataset: 500000
+NUM_ITERS_DECAY: 100000 # Artworks dataset: 100000 / CelebA dataset: 200000
 LR_POLICY: step
 GAMMA: 0.5
 STEP_SIZE: 10000 # Artworks dataset: 10000 / CelebA dataset: 50000
