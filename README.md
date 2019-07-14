@@ -54,7 +54,7 @@ python run.py
 ```
 
 ### Pretrained models
-Run the script if you need to download pretrained models (Smile <=> Non-Smile), (Bangs <=> Non-Bangs). The pretrained models will be downloaded and unzipped into `./pretrained_models/` directory. <br/><br/>
+Run the script if you need to download pretrained models (Smile <=> Non-Smile), (Bangs <=> Non-Bangs). The pretrained models will be downloaded and unzipped into `./pretrained_models/` directory. <br/>
 ```
 bash download.sh pretrained
 ```
