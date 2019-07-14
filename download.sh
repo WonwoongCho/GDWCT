@@ -28,6 +28,6 @@ elif [ $FILE == 'pretrained' ]; then
     rm $filename
 
 else
-    echo "Available arguments are celeba."
+    echo "Available arguments are 'celeba' or 'pretrained'."
     exit 1
 fi
