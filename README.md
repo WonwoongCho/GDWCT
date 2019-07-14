@@ -62,6 +62,7 @@ bash download.sh pretrained
 In order to run test mode, please change several options in the config file, as described in the below script.<br/>
 If the name of a pretrained model is G_A_CelebA_Bangs_G4_320000.pth,
 ```
+N_GROUP: 4
 SAVE_NAME: CelebA_Bangs_G4
 MODEL_SAVE_PATH: pretrained_models/
 START: 320000
