@@ -58,22 +58,21 @@ class Run(object):
         self.G_B = Generator(G_opts['FIRST_DIM'], G_opts['N_RES_BLOCKS'], self.mask, self.config['N_GROUP'],
                            G_opts['MLP_DIM'], G_opts['BIAS_DIM'], G_opts['CONTENT_DIM'], self.device)
 
-        self.D_A = Discriminator(3, D_opts)
-        self.D_B = Discriminator(3, D_opts)
-
         G_params = list(self.G_A.parameters()) + list(self.G_B.parameters()) # + list(blah)
-        D_params = list(self.D_A.parameters()) + list(self.D_B.parameters())
-
         self.G_optimizer = torch.optim.Adam([p for p in G_params if p.requires_grad], self.config['G_LR'], [self.config['BETA1'], self.config['BETA2']], weight_decay=self.config['WEIGHT_DECAY'])
-        self.D_optimizer = torch.optim.Adam([p for p in D_params if p.requires_grad], self.config['D_LR'], [self.config['BETA1'], self.config['BETA2']], weight_decay=self.config['WEIGHT_DECAY'])
-        
         self.G_scheduler = get_scheduler(self.G_optimizer, config)
-        self.D_scheduler = get_scheduler(self.D_optimizer, config)
-
         self.G_A.apply(weights_init(self.config['INIT']))
         self.G_B.apply(weights_init(self.config['INIT']))
-        self.D_A.apply(weights_init('gaussian'))
-        self.D_B.apply(weights_init('gaussian'))
+
+        if self.config['MODE'] == 'train':
+            self.D_A = Discriminator(3, D_opts)
+            self.D_B = Discriminator(3, D_opts)
+            D_params = list(self.D_A.parameters()) + list(self.D_B.parameters())
+            self.D_optimizer = torch.optim.Adam([p for p in D_params if p.requires_grad], self.config['D_LR'], [self.config['BETA1'], self.config['BETA2']], weight_decay=self.config['WEIGHT_DECAY'])
+            self.D_scheduler = get_scheduler(self.D_optimizer, config)
+            self.D_A.apply(weights_init('gaussian'))
+            self.D_B.apply(weights_init('gaussian'))
+        
         # print_network(self.G, 'G')
         # print_network(self.D, 'D')
 
@@ -89,13 +88,15 @@ class Run(object):
         if self.config['DATA_PARALLEL']:
             self.G_A = multi_gpu(gpu1, gpu2, self.G_A)
             self.G_B = multi_gpu(gpu1, gpu2, self.G_B)
-            self.D_A = multi_gpu(gpu1, gpu2, self.D_A)
-            self.D_B = multi_gpu(gpu1, gpu2, self.D_B)
+            if self.config['MODE'] == 'train':
+                self.D_A = multi_gpu(gpu1, gpu2, self.D_A)
+                self.D_B = multi_gpu(gpu1, gpu2, self.D_B)
 
         self.G_A.to(self.device)
         self.G_B.to(self.device)
-        self.D_A.to(self.device)
-        self.D_B.to(self.device)
+        if self.config['MODE'] == 'train':
+            self.D_A.to(self.device)
+            self.D_B.to(self.device)
 
     def l1_criterion(self, input, target):
         return torch.mean(torch.abs(input - target))
@@ -131,10 +132,11 @@ class Run(object):
             self.config['MODEL_SAVE_PATH'], 'G_A_%s_%d.pth' % (self.config['SAVE_NAME'], iteration))))
         self.G_B.load_state_dict(torch.load(os.path.join(
             self.config['MODEL_SAVE_PATH'], 'G_B_%s_%d.pth' % (self.config['SAVE_NAME'], iteration))))
-        self.D_A.load_state_dict(torch.load(os.path.join(
-            self.config['MODEL_SAVE_PATH'], 'D_A_%s_%d.pth' % (self.config['SAVE_NAME'], iteration))))
-        self.D_B.load_state_dict(torch.load(os.path.join(
-            self.config['MODEL_SAVE_PATH'], 'D_B_%s_%d.pth' % (self.config['SAVE_NAME'], iteration))))
+        if self.config['MODE'] == 'train':
+            self.D_A.load_state_dict(torch.load(os.path.join(
+                self.config['MODEL_SAVE_PATH'], 'D_A_%s_%d.pth' % (self.config['SAVE_NAME'], iteration))))
+            self.D_B.load_state_dict(torch.load(os.path.join(
+                self.config['MODEL_SAVE_PATH'], 'D_B_%s_%d.pth' % (self.config['SAVE_NAME'], iteration))))
 
     def update_learning_rate(self):
         if self.G_scheduler is not None:
@@ -151,8 +153,6 @@ class Run(object):
     def test_ready(self):
         self.G_A.eval()
         self.G_B.eval()
-        self.D_A.eval()
-        self.D_B.eval()
 
     def clamping_alpha(self,G):
         for gdwct in G.decoder.gdwct_modules:
@@ -184,62 +184,63 @@ class Run(object):
         # from B to A
         x_BA, whitening_reg_BA, coloring_reg_BA = G_A(c_B, s_A)
 
-        '''
-        ### 2nd stage
-        '''
-        c_BA = G_A.c_encoder(x_BA)
-        c_AB = G_B.c_encoder(x_AB)
-
-        s_AB = G_B.s_encoder(x_AB)
-        s_BA = G_A.s_encoder(x_BA)
-
-        # from AB to A
-        x_ABA, whitening_reg_ABA, coloring_reg_ABA = G_A(c_AB, s_BA)
-
-        # from BA to B
-        x_BAB, whitening_reg_BAB, coloring_reg_BAB = G_B(c_BA, s_AB)
-
-        # from A to A
-        x_AA, _, _ = G_A(c_A, s_A)
-        
-        # from B to B
-        x_BB, _, _ = G_B(c_B, s_B)
-
-        # Compute the losses
-        g_loss_fake = self.D_A.calc_gen_loss(x_BA) + self.D_B.calc_gen_loss(x_AB)
-
-        loss_cross_rec = self.l1_criterion(x_ABA, x_A) + self.l1_criterion(x_BAB, x_B)
-        loss_ae_rec = self.l1_criterion(x_AA, x_A) + self.l1_criterion(x_BB, x_B)
-
-        loss_cross_s = self.l1_criterion(s_AB, s_B) + self.l1_criterion(s_BA, s_A)
-        
-        loss_cross_c = self.l1_criterion(c_AB, c_A) + self.l1_criterion(c_BA, c_B)
-
-        loss_whitening_reg = self.reg([whitening_reg_AB, whitening_reg_BA, whitening_reg_ABA, whitening_reg_BAB])
-        loss_coloring_reg = self.reg([coloring_reg_AB, coloring_reg_BA, coloring_reg_ABA, coloring_reg_BAB])
-
-        # Backward and optimize.
-        g_loss = g_loss_fake + \
-                 self.config['LAMBDA_X_REC'] * (loss_ae_rec) + \
-                 self.config['LAMBDA_X_CYC'] * loss_cross_rec + \
-                 self.config['LAMBDA_S'] * loss_cross_s + \
-                 self.config['LAMBDA_C'] * loss_cross_c + \
-                 self.config['LAMBDA_W_REG'] * loss_whitening_reg + \
-                 self.config['LAMBDA_C_REG'] * loss_coloring_reg
-
         if isTrain:
+
+            '''
+            ### 2nd stage
+            '''
+            c_BA = G_A.c_encoder(x_BA)
+            c_AB = G_B.c_encoder(x_AB)
+
+            s_AB = G_B.s_encoder(x_AB)
+            s_BA = G_A.s_encoder(x_BA)
+
+            # from AB to A
+            x_ABA, whitening_reg_ABA, coloring_reg_ABA = G_A(c_AB, s_BA)
+
+            # from BA to B
+            x_BAB, whitening_reg_BAB, coloring_reg_BAB = G_B(c_BA, s_AB)
+
+            # from A to A
+            x_AA, _, _ = G_A(c_A, s_A)
+            
+            # from B to B
+            x_BB, _, _ = G_B(c_B, s_B)
+
+            # Compute the losses
+            g_loss_fake = self.D_A.calc_gen_loss(x_BA) + self.D_B.calc_gen_loss(x_AB)
+
+            loss_cross_rec = self.l1_criterion(x_ABA, x_A) + self.l1_criterion(x_BAB, x_B)
+            loss_ae_rec = self.l1_criterion(x_AA, x_A) + self.l1_criterion(x_BB, x_B)
+
+            loss_cross_s = self.l1_criterion(s_AB, s_B) + self.l1_criterion(s_BA, s_A)
+            
+            loss_cross_c = self.l1_criterion(c_AB, c_A) + self.l1_criterion(c_BA, c_B)
+
+            loss_whitening_reg = self.reg([whitening_reg_AB, whitening_reg_BA, whitening_reg_ABA, whitening_reg_BAB])
+            loss_coloring_reg = self.reg([coloring_reg_AB, coloring_reg_BA, coloring_reg_ABA, coloring_reg_BAB])
+
+            # Backward and optimize.
+            g_loss = g_loss_fake + \
+                     self.config['LAMBDA_X_REC'] * (loss_ae_rec) + \
+                     self.config['LAMBDA_X_CYC'] * loss_cross_rec + \
+                     self.config['LAMBDA_S'] * loss_cross_s + \
+                     self.config['LAMBDA_C'] * loss_cross_c + \
+                     self.config['LAMBDA_W_REG'] * loss_whitening_reg + \
+                     self.config['LAMBDA_C_REG'] * loss_coloring_reg
+            
             self.G_optimizer.zero_grad()
             g_loss.backward()
             self.G_optimizer.step()
 
-        # Logging.
-        self.loss['G/loss_fake'] = g_loss_fake.item()
-        self.loss['G/loss_cross_rec'] = self.config['LAMBDA_X_REC']* loss_cross_rec.item()
-        self.loss['G/loss_ae_rec'] = self.config['LAMBDA_X_REC'] * loss_ae_rec.item()
-        self.loss['G/loss_latent_c'] = self.config['LAMBDA_C'] * loss_cross_c.item()
-        self.loss['G/loss_latent_s'] = self.config['LAMBDA_S'] * loss_cross_s.item()
-        self.loss['G/loss_whitening_reg'] = self.config['LAMBDA_W_REG'] * loss_whitening_reg.item()
-        self.loss['G/loss_coloring_reg'] = self.config['LAMBDA_C_REG'] * loss_coloring_reg.item()
+            # Logging.
+            self.loss['G/loss_fake'] = g_loss_fake.item()
+            self.loss['G/loss_cross_rec'] = self.config['LAMBDA_X_REC']* loss_cross_rec.item()
+            self.loss['G/loss_ae_rec'] = self.config['LAMBDA_X_REC'] * loss_ae_rec.item()
+            self.loss['G/loss_latent_c'] = self.config['LAMBDA_C'] * loss_cross_c.item()
+            self.loss['G/loss_latent_s'] = self.config['LAMBDA_S'] * loss_cross_s.item()
+            self.loss['G/loss_whitening_reg'] = self.config['LAMBDA_W_REG'] * loss_whitening_reg.item()
+            self.loss['G/loss_coloring_reg'] = self.config['LAMBDA_C_REG'] * loss_coloring_reg.item()
 
         return (x_AB, x_BA)
 
