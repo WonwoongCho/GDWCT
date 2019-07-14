@@ -59,7 +59,7 @@ Run the script if you need to download pretrained models (Smile <=> Non-Smile), 
 bash download.sh pretrained
 ```
 
-In order to run test mode, please change several options in the config file, as described in the below script.<br/>
+In order to test the pretrained models, please change several options in the config file, as described in the script below.<br/>
 If the name of a pretrained model is G_A_CelebA_Bangs_G4_320000.pth,
 ```
 N_GROUP: 4
