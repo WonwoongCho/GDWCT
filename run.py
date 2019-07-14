@@ -346,7 +346,6 @@ class Run(object):
                 save_img([x_A, x_B, x_AB, x_BA], self.config['SAVE_NAME'], i, 'test_results')
 
 
-
 def main():
     
     # For fast training

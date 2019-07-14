@@ -10,6 +10,7 @@ if [ $FILE == "celeba" ]; then
     unzip $ZIP_FILE -d ./datasets/
     rm $ZIP_FILE
 
+
 elif [ $FILE == 'pretrained' ]; then
 
     # GDWCT trained on CelebA (Bangs<=>No_Bangs, Smiling<=>Non-Smiling), 216x216 resolution
