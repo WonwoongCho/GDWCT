@@ -54,7 +54,21 @@ python run.py
 ```
 
 ### Pretrained models
-We will upload the pretrained model trained on the ukiyoe2photo dataset.
+Run the script if you need to download pretrained models (Smile <=> Non-Smile), (Bangs <=> Non-Bangs). The pretrained models will be downloaded and unzipped into `./pretrained_models/` directory. <br/><br/>
+```
+bash download.sh pretrained
+```
+
+In order to run test mode, please change several options in the config file, as described in the below script.<br/>
+If the name of a pretrained model is G_A_CelebA_Bangs_G4_320000.pth,
+```
+SAVE_NAME: CelebA_Bangs_G4
+MODEL_SAVE_PATH: pretrained_models/
+START: 320000
+LOAD_MODEL: True
+MODE: test
+```
+
 
 ## Results
 <img src="https://user-images.githubusercontent.com/20943085/59216176-0befee80-8bf6-11e9-848d-e89ac4af71b2.png" width="100%"></img>
