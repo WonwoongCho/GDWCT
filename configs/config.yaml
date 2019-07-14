@@ -19,11 +19,7 @@ D_LR: 0.0001
 BETA1: 0.5
 BETA2: 0.999
 WEIGHT_DECAY: 0.0001
-<<<<<<< HEAD
 NUM_ITERS_DECAY: 200000 # Artworks dataset: 100000 / CelebA dataset: 200000
-=======
-NUM_ITERS_DECAY: 100000 # Artworks dataset: 100000 / CelebA dataset: 200000
->>>>>>> 713e7ef626e0ee597b79cfe8c2a75f1ca28b37bf
 LR_POLICY: step
 GAMMA: 0.5
 STEP_SIZE: 50000 # Artworks dataset: 10000 / CelebA dataset: 50000
@@ -57,7 +53,7 @@ D:
 NUM_WORKERS: 0
 SAVE_NAME: CelebA_Bangs_G4
 SAVE_EVERY: 10000
-MODEL_SAVE_PATH: models_test/
+MODEL_SAVE_PATH: pretrained_models/
 
 ### Required to be altered when MODE is changed.
 START: 320000 # Start iterations. This is also used in designating an trained-iteration of a loaded model.
