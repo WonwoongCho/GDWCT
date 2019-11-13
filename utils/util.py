@@ -4,20 +4,13 @@ from torch.autograd import Variable
 from torch.backends import cudnn
 from random import *
 import numpy as np
-import matplotlib.pyplot as plt
 import torch.nn.functional as F
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-from matplotlib import ticker
-import scipy.misc
-import cv2
 import yaml
 from torch.optim import lr_scheduler
 import torch.nn.init as init
 import random
 from torchvision.utils import save_image, make_grid
 import math
-import seaborn as sns
-sns.set(color_codes=True)
 
 import os
 import torchvision.utils as vutils
